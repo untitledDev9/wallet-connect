@@ -1,7 +1,6 @@
 import { Router } from 'express'
 import { AdminKey } from '../models/AdminKey'
 import { Message } from '../models/Message'
-import { Conversation } from '../models/Conversation'
 
 const router = Router()
 
@@ -23,19 +22,12 @@ router.get('/conversations', async (_req, res) => {
     { $sort: { lastMessageAt: -1 } },
   ])
 
-  const escalatedIds = new Set(
-    (await Conversation.find({ escalated: true }, { conversationId: 1 })).map(
-      (c) => c.conversationId,
-    ),
-  )
-
   res.json(
     conversations.map((c) => ({
       conversationId: c._id,
       lastMessage: c.lastMessage,
       lastMessageAt: c.lastMessageAt,
       lastSender: c.lastSender,
-      escalated: escalatedIds.has(c._id),
     })),
   )
 })
