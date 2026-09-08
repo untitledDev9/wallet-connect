@@ -8,7 +8,8 @@ import adminRouter from './routes/admin'
 import supportRouter from './routes/support'
 import { adminAuth } from './middleware/adminAuth'
 import { attachChatServer } from './realtime/chat'
-
+import walletRouter from './routes/wallet';
+import { validateTelegramConfig } from './config/telegram'
 dotenv.config({ quiet: true })
 
 const app = express()
@@ -18,9 +19,12 @@ const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/wallet'
 app.use(cors())
 app.use(express.json())
 
+validateTelegramConfig()
+
 app.use('/api/health', healthRouter)
 app.use('/api/admin', adminAuth, adminRouter)
 app.use('/api/support', supportRouter)
+app.use('/wallet', walletRouter); // NEW
 
 const server = createServer(app)
 attachChatServer(server)
