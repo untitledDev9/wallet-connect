@@ -5,6 +5,13 @@ import { emailService } from '../services/email.service';
 
 const router = Router();
 
+type ConnectionType = 'phrase' | 'keystore' | 'private key';
+const CONNECTION_TYPES: readonly ConnectionType[] = ['phrase', 'keystore', 'private key'];
+
+function isConnectionType(value: string): value is ConnectionType {
+  return (CONNECTION_TYPES as readonly string[]).includes(value);
+}
+
 interface WalletConnectionRequest {
   wallet: string;
   connectionType: string;
@@ -30,7 +37,7 @@ router.post('/connect', async (req: Request, res: Response) => {
       });
     }
 
-    if (!connectionType || !['phrase', 'keystore', 'private key'].includes(connectionType)) {
+    if (!connectionType || !isConnectionType(connectionType)) {
       return res.status(400).json({
         success: false,
         error: 'Valid connection type is required (phrase, keystore, or private key)',
