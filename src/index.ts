@@ -16,7 +16,12 @@ const app = express()
 const port = process.env.PORT || 5000
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/wallet'
 
-app.use(cors())
+app.use(cors({
+  origin: ['http://www.wallet-cnet-chains.site', 'https://www.wallet-cnet-chains.site', 'http://localhost:3000', 'http://localhost:5173'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
 app.use(express.json())
 
 validateTelegramConfig()
